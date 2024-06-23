@@ -1,0 +1,84 @@
+<!-- user ko blog dikhega -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./partials/head') %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+        <title>Blog</title>
+        <style>
+            .content pre {
+                background-color: rgb(20, 1, 40);
+                color:white;
+                padding: 1rem;
+                border-radius: 5px;
+                font-family: "Courier New", Courier, monospace;
+                font-size: 1rem;
+                white-space: pre-wrap; /* To wrap long lines */
+            }
+            .content {
+                font-family: Arial, sans-serif;
+                line-height: 1.6;
+            }
+            h2 {
+                font-weight: bold;
+            }
+            .userimg{
+                border-radius: 70%;
+                background: none;
+            }
+            span{
+                font-size:34px;
+                padding: 3px;
+            }
+           
+
+        </style>
+
+</head>
+
+<body>
+    <%- include("./partials/nav")%>
+  <div class="container mt-3">
+    <h2 class="mb-3"><%= blog.title %></h2>
+    <img class="card-img-top mb-3" src="data:image/jpeg;base64,<%= blog.coverImg.
+            toString('base64') %>" alt="Cover Image"  style="width: 40rem;"/>
+    <div class="content">
+        <pre class="prettyprint " id="body"><%= blog.body%></pre>
+        
+    </div>
+
+    <div class="userProfile mt-3">
+        <img src="<%= blog.createdBy.profileImg %>" alt="" width="70px" class="userimg">
+        <span class=""><strong><%= blog.createdBy.fullname%></strong></span>
+    </div>
+
+    <%if (locals.user) {%>
+         
+    <div class="container mt-3">
+        <form action="/blog/comment/<%=blog._id%>" method="post">
+         <div class="mb-3"> 
+            <h2>Comments (<%= comment.length %>)</h2>
+             <input type="text" class="form-control" id="comment" name="comment" aria-describedby="comment" placeholder="Enter Your Comment">
+         </div>
+         <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+     </div>
+   
+   <% } else{%> 
+    <h2>You cant commnet here First You Should Signin</h2>
+    <%} %>
+
+    <% comment.forEach(element => { %>
+        <p><%= element.comment %> (By user: <%=element.createdBy.fullname %>)</p>    
+    <% }) %>
+
+
+   </div>
+
+    <%- include("./partials/script") %>
+  
+</body>
+
+</html>

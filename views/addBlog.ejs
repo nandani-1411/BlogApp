@@ -1,0 +1,39 @@
+<!-- user blog ko add kr payega  -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./partials/head') %>
+        <title>Add blog</title>
+
+</head>
+
+<body>
+    <%- include("./partials/nav")%>
+
+        <div class="container mt-3">
+            <form method="post" action="/blog/addblog" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="title" class="form-label">Blog Title</label>
+                    <input type="text" class="form-control" id="title" name="title" aria-describedby="title">
+                </div>
+                <div class="mb-3">
+                    <label for="content" class="form-label">Blog Content (body)</label>
+                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" name="body"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="content" class="form-label">Cover Img </label>
+                    <input type="file" class="form-control" id="coverImg" name="coverImg" aria-describedby="coverImg" >
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+            <p>
+                <%=JSON.stringify(locals.user) %>
+            </p>
+        </div>
+
+        <%- include("./partials/script") %>
+</body>
+
+</html>
